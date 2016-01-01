@@ -9,18 +9,20 @@ import django.http
 import json
 import traceback
 
+import providers.models
+
 #all modules should be imported here
-import version
-import version.views
-import current
-import current.views
-import calcpy
-import calcpy.views
+#import version
+#import version.views
+#import current
+#import current.views
+#import calcpy
+#import calcpy.views
 
 ## for test working server
 def index(request):
     """for test working server"""
-    return django.http.HttpResponse("MyApp server" )
+    return django.http.HttpResponse(providers.models.Provider.objects.get(NFZDepartment=1).Name)
 
 def ajax(request, module, function):
     """dispatch ajax requests"""

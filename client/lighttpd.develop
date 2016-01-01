@@ -30,9 +30,9 @@ server.modules += ( "mod_proxy" )
 #accesslog.format       = "%h %t %r %>s %b time: %T [s]"
 #accesslog.filename       = log_root + "/access.log"
 
-$HTTP["url"] =~ "^/srvmyapp" {
+$HTTP["url"] =~ "^/api" {
         proxy.balance = "hash"
         proxy.server = ( "" => (
-                "srvmyapp" => ( "host" => "127.0.0.1", "port" => 50007 )
+                "api" => ( "host" => "127.0.0.1", "port" => 50007 )
         ))
 }

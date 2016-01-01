@@ -1,18 +1,25 @@
-## @file web/urls.py
+# @file web/urls.py
 #  @brief Django urls
 
 from django.conf.urls import patterns, include, url
-#from django.conf import settings
+from django.contrib import admin
+from rest_framework import routers
 
-import views
-import version.models
-
-web_srv_prefix = version.models.getWebSrvPrefix()
-
-urlpatterns = patterns('',
-                       url(r'^' + web_srv_prefix + '/ajax/(?P<module>\w+)/(?P<function>\w+)/', views.ajax, name='ajax'),
-                       url(r'^$', views.index, name='index')
-)
+from providers.views import RecordListView, UpdateDatabase, GetDepartments
+from providers.views_rest import ProviderViewSet, ProviderSectionViewSet, ProvisionViewSet, RecordViewSet
 
 
+router = routers.DefaultRouter()
+router.register(r'provider', ProviderViewSet, base_name='provider')
+router.register(r'providersection', ProviderSectionViewSet, base_name='providersection')
+router.register(r'provision', ProvisionViewSet,base_name='provision')
+router.register(r'record', RecordViewSet,base_name='record')
 
+
+urlpatterns = patterns( '',
+                        url(r'^$', RecordListView.as_view(), name='index'),
+                        url(r'^update/$', UpdateDatabase, name='update'),
+                        url(r'^select/$', GetDepartments, name='select'),
+                        url(r'^admin/', include(admin.site.urls)),
+                        url(r'^api/', include(router.urls))
+            )

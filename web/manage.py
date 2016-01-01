@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-## @file manage.py
+# @file manage.py
 #  @brief Django run script
 
 import os

@@ -125,6 +125,7 @@ elif env['t'] == 'f':
         print('Functional tests not available under '+ str(platform.system()) )
 elif env['syncdb'] == 1:
     os.system('python2 build_web/manage.py syncdb --noinput')
+    
 elif env['zip'] == 1:
     dir_name = os.path.split(os.getcwd())[-1]
     package_name = 'bioweb_' + MYAPP_VER_STRING + '_' + MYAPP_VER_INSTALL + '_' + str(dir_name)

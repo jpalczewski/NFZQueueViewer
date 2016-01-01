@@ -1,0 +1,8 @@
+<h1>Świadczenia</h1>
+<ul>
+{% for record in object_list|dictsort:"Pr.Name" %}
+    <li>{{ record.Pr.Name }} - {{ record.Pn.Name }}</li>
+{% empty %}
+    <li>No articles yet.</li>
+{% endfor %}
+</ul>

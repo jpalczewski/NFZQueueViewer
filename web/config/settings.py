@@ -25,11 +25,20 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-#    'django.contrib.staticfiles',
-    'version',
-    'current',
-    'calcpy'
+    'django.contrib.admin',
+    'django.contrib.staticfiles',
+    'providers',
+    'rest_framework',
+#    'version',
+#    'current',
+#    'calcpy'
 )
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
+    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework.authentication.SessionAuthentication',),
+    'PAGE_SIZE': 10
+}
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -44,16 +53,16 @@ ROOT_URLCONF = 'config.urls'
 
 WSGI_APPLICATION = 'wsgi.application'
 
-import version.models
+#import version.models
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': version.models.getDBName(),
+        'NAME': 'mydb',
         'HOST': '',
         'PORT': '5432',
-        'USER': version.models.getDBUser(),
-        'PASSWORD': version.models.getDBPassword()
+        'USER': 'mydb',
+        'PASSWORD': 'mydb',
     }
 }
 
@@ -73,4 +82,4 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-
+STATIC_URL = '/static/'
