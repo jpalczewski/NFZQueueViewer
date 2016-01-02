@@ -2,7 +2,7 @@
 import os, platform, subprocess, re, time, ConfigParser, shutil, sys, signal, fileinput
 
 MYAPP_VER_MAJOR = '0'
-MYAPP_VER_MINOR = '08'
+MYAPP_VER_MINOR = '00'
 MYAPP_VER_COMPILATION = '0'
 MYAPP_VER_INSTALL = '1'
 
@@ -18,7 +18,7 @@ MYAPP_VER_STRING = str(MYAPP_VER_MAJOR) + '.' + str(MYAPP_VER_MINOR) + '.' + MYA
 #web
 WWW_BROWSER_WINDOWS='firefox'
 WWW_BROWSER_LINUX='firefox'
-WEB_SRV_PREFIX = 'srvmyapp'
+WEB_SRV_PREFIX = 'api'
 WEB_SRV_HOST = '127.0.0.1'
 WEB_SRV_PORT = '50007'
 WEB_CLIENT_HOST = '127.0.0.1'
@@ -125,7 +125,7 @@ elif env['t'] == 'f':
         print('Functional tests not available under '+ str(platform.system()) )
 elif env['syncdb'] == 1:
     os.system('python2 build_web/manage.py syncdb --noinput')
-    
+
 elif env['zip'] == 1:
     dir_name = os.path.split(os.getcwd())[-1]
     package_name = 'bioweb_' + MYAPP_VER_STRING + '_' + MYAPP_VER_INSTALL + '_' + str(dir_name)
