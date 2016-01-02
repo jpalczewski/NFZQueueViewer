@@ -5,7 +5,10 @@
 
 
 <div ng-controller="statusController as status" id="status">
-    Aktualny status: {{now}}
-    
-    <button type="button" ng-click="status.toggleStatus()">Zmień!</button>
+    Wartości:
+    <ul>
+        <li ng-repeat="(property, value) in status.state" ng-model="property">{{property}} - {{value}}</li>
+    </ul>
+
+    <button type="button" ng-click="status.refresh()">Zmień!</button>
 </div>
