@@ -2,7 +2,11 @@
 <h1>NFZQueueViewer</h1>
 
 <div ng-controller="viewerController as view">
-
+    <ul id="viewtable">
+        <li ng-repeat="entry in entries"><span ng-repeat="(property, value) in entry">{{value}}</span> - <a ng-click="testLuckiness(entry['Phone'])">Lucky?</a></li>
+    </ul>
+    <button type="button" ng-click="back()">Cofnij</button>
+    <button type="button" ng-click="next()">Dalej</button>
 </div>
 
 

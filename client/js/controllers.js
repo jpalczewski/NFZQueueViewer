@@ -122,4 +122,27 @@ $scope.update = function() {
     }).error(function(reject) {console.log(reject);});
 }
 
-}]).controller();
+}]).controller('viewerController', [ '$scope', '$http','$interval','$timeout', function($scope, $http, $interval, $timeout) {
+    $scope.page = 1;
+    $scope.entries = [];
+
+    $scope.loadpage = function(page) {
+        $http.get('api/providersection/?format=json&page=' + page).success(function(data) {
+            $scope.entries = data['results'];
+        });
+    }
+    $scope.testLuckiness = function(what) {
+        $http.post('/api/luck/'+what).success(function(data) {
+            window.alert("That number is lucky: " + data);
+        });
+    }
+    $scope.next = function() {
+        $scope.page++;
+        $scope.loadpage($scope.page);
+    }
+    $scope.back = function() {
+        if($scope.page>1) $scope.page--;
+        $scope.loadpage($scope.page);
+    }
+    $scope.loadpage(1);
+}]);

@@ -1,4 +1,4 @@
-# -*- mode: Python; -*- 
+# -*- mode: Python; -*-
 
 ## @file calc/SConscript
 #  @brief scons build for calc C++ library
@@ -49,20 +49,9 @@ elif(platform.system() == "Windows"):
    env_dll.Append( CPPFLAGS = ' /D "CALC_EXPORTS" ')
 
 #build C++ library
-cpplib = env_dll.SharedLibrary( target = 'calc', source = ['../calc/src/calc.cpp', '../calc/src/calcpy.cpp'])
+cpplib = env_dll.SharedLibrary( target = 'calc', source = ['../calc2/src/luck.cpp'])
 if(platform.system() == "Linux"):
-   target = '../build_web/calcpy/calc.so'
+   target = '../build_web/calc2/luck.so'
 elif(platform.system() == "Windows"):
-   target = '../build_web/calcpy/calc.pyd'
+   target = '../build_web/calc2/luck.pyd'
 env_dll.Command(target, cpplib, copyLibBuilder )
-
-#build tests
-env_test = env.Clone()
-
-if(platform.system() == "Linux"):
-   env_test.Append( LIBS = [ 'python2.7', 'boost_unit_test_framework' ] )
-   env_test.Prepend( LIBS = 'calc' )
-elif(platform.system() == "Windows"):
-   env_test.Prepend( LIBS = 'calc' )
-env_test.Program( target = "calc_test", source = 'tests/calc_test.cpp')
-
