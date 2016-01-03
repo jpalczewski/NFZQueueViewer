@@ -13,14 +13,14 @@ An app which is designed to view places where queues from NFZ appears from diffe
 
 `scons && scons r=l` will do the trick.
 
-Client webapp shows size of data loaded into database(and it checks&updates it in constant time interval) It is possible also to load downloaded xlsx files(codes in webapp are based on [internal enumeration from NFZ](http://www.nfz.gov.pl/o-nfz/identyfikatory-oddzialow-wojewodzkich-nfz/)) or flush all data from the database.
+Client webapp shows size of data loaded into database(and it checks&updates it in a constant time interval) It is possible also to load downloaded xlsx files(codes in webapp are based on [internal enumeration from NFZ](http://www.nfz.gov.pl/o-nfz/identyfikatory-oddzialow-wojewodzkich-nfz/)) or flush all data from the database.
 
-`Lucky?` button sends a telephone number to C++ module where complex calculations are done(ie. if sum of all digits from phone number are divisible by seven) and show answer to the user.
+`Lucky?` button sends a telephone number to C++ module where complex calculations are done(ie. if the sum of all digits from phone number is divisible by seven) and show the answer to the user.
 
 ## Known bugs
-System where python2 and python3 are installed may encounter problems where django uses incompatibile libraries from python3 - solution from [archlinux wiki](https://wiki.archlinux.org/index.php/Python#Dealing_with_version_problem_in_build_scripts) work flawlessly.
+System where python2 and python3 are installed may encounter problems where django uses incompatible libraries from python3 - solution from [archlinux wiki](https://wiki.archlinux.org/index.php/Python#Dealing_with_version_problem_in_build_scripts) work flawlessly.
 
 ## Known limitations
 
-- Loading files into database makes server irresponsive, end of loading are indicated by message boxes caused by failed status refresh.
+- Loading files into the database makes server irresponsive, end of loading are indicated by message boxes caused by failed status refresh.
 - Windows app isn't tested at the moment.
