@@ -1,13 +1,41 @@
 <!-- this file contains sections included during build into html body of test and static html page" -->
 <h1>NFZQueueViewer</h1>
 
+<div ng-controller="viewerController as view">
+
+</div>
 
 
 
-<div ng-controller="statusController as status" id="status" ng-init="status.refresh()">
+<div ng-controller="statusController as status" id="status">
     Wartości:
     <ul id="statusMenu">
         <li ng-repeat="(property, value) in status.state" ng-model="property">{{property}} - {{value}}</li>
     </ul>
 
+</div>
+
+<div ng-controller="commandController">
+    <p>NFZDepartments:</p>
+    <label ng-repeat="dep in deps">
+      <!--
+        - use `value="{{fruit.name}}"` to give the input a real value, in case the form gets submitted
+          traditionally
+
+        - use `ng-checked="fruit.selected"` to have the checkbox checked based on some angular expression
+          (no two-way-data-binding)
+
+        - use `ng-model="fruit.selected"` to utilize two-way-data-binding. Note that `.selected`
+          is arbitrary. The property name could be anything and will be created on the object if not present.
+      -->
+      <input
+        type="checkbox"
+        name="selectedDeps[]"
+        value="{{dep.name}}"
+        ng-model="dep.selected"
+      > {{dep.name}}
+    </label>
+
+    <button type="button" ng-click="update()">Update</button>
+    <button type="button" ng-click="flush()">Flush</button>
 </div>
