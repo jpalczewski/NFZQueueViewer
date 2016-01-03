@@ -1,5 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
+# A PoC used to download files from NFZ webserver.
+
 import tempfile, glob, shutil, json, urllib
 from os.path import join, dirname, realpath
 from zipfile import ZipFile

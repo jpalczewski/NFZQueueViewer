@@ -49,9 +49,9 @@ elif(platform.system() == "Windows"):
    env_dll.Append( CPPFLAGS = ' /D "CALC_EXPORTS" ')
 
 #build C++ library
-cpplib = env_dll.SharedLibrary( target = 'calc', source = ['../calc2/src/luck.cpp'])
+cpplib = env_dll.SharedLibrary( target = 'calc', source = ['../luck/src/luck.cpp'])
 if(platform.system() == "Linux"):
-   target = '../build_web/calc2/luck.so'
+   target = '../build_web/luck/luck.so'
 elif(platform.system() == "Windows"):
-   target = '../build_web/calc2/luck.pyd'
+   target = '../build_web/luck/luck.pyd'
 env_dll.Command(target, cpplib, copyLibBuilder )
