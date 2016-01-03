@@ -22,5 +22,5 @@ System where python2 and python3 are installed may encounter problems where djan
 
 ## Known limitations
 
-- Loading files into the database makes server irresponsive, end of loading are indicated by message boxes caused by failed status refresh.
+- Loading files into the database makes server irresponsive, end of loading may be indicated by message boxes caused by failed status refresh.
 - Windows app isn't tested at the moment.
