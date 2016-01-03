@@ -22,16 +22,6 @@
 <div ng-controller="commandController">
     <p>NFZDepartments:</p>
     <label ng-repeat="dep in deps">
-      <!--
-        - use `value="{{fruit.name}}"` to give the input a real value, in case the form gets submitted
-          traditionally
-
-        - use `ng-checked="fruit.selected"` to have the checkbox checked based on some angular expression
-          (no two-way-data-binding)
-
-        - use `ng-model="fruit.selected"` to utilize two-way-data-binding. Note that `.selected`
-          is arbitrary. The property name could be anything and will be created on the object if not present.
-      -->
       <input
         type="checkbox"
         name="selectedDeps[]"

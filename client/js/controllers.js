@@ -4,14 +4,12 @@
 angular.module('NFZQVControllers', [])
     .controller('statusController', [ '$scope', '$http','$interval','$timeout', function($scope, $http,$interval,$timeout) {
         var states = ['ready', 'working'];
-        var actualState = 0;
-        $scope.now = "ok";
         this.minisemaphore = 0;
         this.semDOWN = function() {
-            //$timeout(function() {
-            $scope.status.minisemaphore++;
-            if($scope.status.minisemaphore==1) $scope.status.state.now = states[1];
-            //}, 0);
+            $timeout(function() {
+                $scope.status.minisemaphore++;
+                if($scope.status.minisemaphore==1) $scope.status.state.now = states[1];
+            }, 0);
         };
 
             this.semUP = function() {
@@ -36,7 +34,7 @@ angular.module('NFZQVControllers', [])
             get_count('provision');
             get_count('record');
         };
-        $interval(refresh, 30000);
+        $interval(refresh, 10000);
 
         var get_count = function(what) {
             $scope.status.semDOWN();
@@ -54,9 +52,10 @@ angular.module('NFZQVControllers', [])
     }])
 .controller('commandController', [ '$scope', '$http','$interval','$timeout','filterFilter', function($scope, $http,$interval,$timeout,$filterFilter) {
     $scope.deps = [
-        { name: '01',    selected: false },
-        { name: '02',   selected: false },
-        { name: '03',     selected: false },
+        { name: '01', selected: false },
+        { name: '02', selected: false },
+        { name: '03', selected: false },
+        { name: '04', selected: false },
         { name: '05', selected: false },
         { name: '06', selected: false },
         { name: '07', selected: false },
@@ -69,58 +68,59 @@ angular.module('NFZQVControllers', [])
         { name: '14', selected: false },
         { name: '15', selected: false },
         { name: '16', selected: false },
-];
+    ];
 
     $scope.selected = [];
 
     $scope.selectedDeps = function selectedDeps() {
-    return filterFilter($scope.deps, { selected: true })
-  };
+        return filterFilter($scope.deps, { selected: true })
+    };
 
-  $scope.$watch('deps|filter:{selected:true}', function (nv) {
-  $scope.selected = nv.map(function (dep) {
-    return dep.name;
-  });
-}, true);
+    $scope.$watch('deps|filter:{selected:true}', function (nv) {
+        $scope.selected = nv.map(function (dep) {
+            return dep.name;
+        });
+    }, true);
 
-$scope.block = false;
+    $scope.block = false;
+    $scope.semUP = function() {
+        $timeout(function(){
+            $scope.state = "Waiting...";
+            block = true;
+        }, 0);
+    };
+    $scope.semDOWN = function() {
+        $timeout(function(){
+            $scope.state = "Ready!";
+            block = false;
+        }, 0);
+    };
 
-$scope.semUP = function() {
-    $timeout(function(){
-        $scope.state = "Waiting...";
-        block = true;
-    }, 0);
-};
-$scope.semDOWN = function() {
-    $timeout(function(){
-        $scope.state = "Ready!";
-        block = false;
-    }, 0);
-};
-$scope.flush = function() {
-    if($scope.block)
-    {
-        window.alert("You can't - another request is in process.");
-        return;
-    }
-    $http.get('/api/flush/').success(function(data) {
-        $scope.semDOWN;
-        console.log(data);
-    }).error(function(reject) {});
-}
-$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
-$scope.update = function() {
-    if($scope.block)
-    {
-        window.alert("You can't - another request is in process.");
-        return;
+    $scope.flush = function() {
+        if($scope.block)
+        {
+            window.alert("You can't - another request is in process.");
+            return;
+        }
+        $http.get('/api/flush/').success(function(data) {
+            $scope.semDOWN;
+            console.log(data);
+        }).error(function(reject) {});
     }
 
-    $http.post('/api/update/', {'departments':$scope.selected}).success(function(data) {
-        $scope.semDOWN;
-        console.log(data);
-    }).error(function(reject) {console.log(reject);});
-}
+    $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+    $scope.update = function() {
+        if($scope.block)
+        {
+            window.alert("You can't - another request is in process.");
+            return;
+        }
+
+        $http.post('/api/update/', {'departments':$scope.selected}).success(function(data) {
+            $scope.semDOWN;
+            console.log(data);
+        }).error(function(reject) {console.log(reject);});
+    }
 
 }]).controller('viewerController', [ '$scope', '$http','$interval','$timeout', function($scope, $http, $interval, $timeout) {
     $scope.page = 1;
